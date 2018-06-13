@@ -36,28 +36,47 @@ function sendQuery(names) {
 						const document = new JSDOM(data["body"]).window.document;
 						const taxaString = document.getElementsByClassName("url")[0].textContent;
 						if (taxaString === "undefined") {
-								worldNames.push({ update: "no result" });
+								worldNames.push("no result");
 						} else {
 								let updatedName = taxaString.split("/");
 								updatedName = updatedName[updatedName.length - 1];
 								updatedName = updatedName.replace(/-/, " ").trim();
-								worldNames.push({ update: updatedName });
+								worldNames.push(updatedName);
 						}
 				}
 				return { worldNames, errorNames };
 		});
 }
 
-function parseAmphibiaWeb() {
+function parseAmphibiaWeb(names) {
 		const fp = "./src/data/amphib_names.txt";
-		fs.readFile(fp, "utf8", (err, data) => {
-				if (err) {
-						throw err;
-				} else {
-						console.log(data);
+		const parsed = [];
+		const webNames = [];
+		const file = fs.readFileSync(fp, "utf8");
+		const lines = file.split("\n");
+		for (const line of lines) {
+				const col = line.split("\t");
+				parsed.push({
+						genusSpecies: col[3] + " " + col[5],
+						gaaName: col[7],
+						itisName: col[9]
+				});
+		}
+
+		for (const name of names) {
+				let located = false;
+				for (let i = 0; i < parsed.length - 1; i++) {
+						if (parsed[i]["gaaName"].toLowerCase() === name || parsed[i]["itisName"].toLowerCase() === name) {
+								webNames.push(parsed[i]["genusSpecies"]);
+								located = true;
+						}
 				}
-		});
+				if (!(located)) {
+						webNames.push("no result");
+				}
+		}
+		return webNames;
 }
 
-sendQuery(["bufo canorus"]);
-// parseAmphibiaWeb();
+console.log(sendQuery(["bufo canorus"]));
+// console.log(parseAmphibiaWeb(["bufo canorus"]));
