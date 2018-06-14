@@ -11,9 +11,6 @@ function parseInputFile(file) {
     for (const line of lines) {
         ret.push(line);
     }
-    for (const foo of ret) {
-        console.log(foo);
-    }
     return ret;
 }
 
