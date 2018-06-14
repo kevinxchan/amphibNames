@@ -7,44 +7,47 @@ const { JSDOM } = jsdom;
  * Query databases with the list of names.
  */
 function sendQuery(names) {
-    const amphibWorld = "http://research.amnh.org/vz/herpetology/amphibia/amphib/basic_search";
-    const allPromises = [];
-    const worldNames = [];
-    const errorNames = [];
+		return new Promise(function(resolve, reject) {
+				const amphibWorld = "http://research.amnh.org/vz/herpetology/amphibia/amphib/basic_search";
+				const allPromises = [];
+				const worldNames = [];
+				const errorNames = [];
 
-		for (const name of names) {
-				const nameEncode = name.replace(/\s/g, "+");
-				const options = {
-						method: "GET",
-						uri: amphibWorld,
-						qs: {
-								stree: "",
-								stree_id: "",
-								basic_query: nameEncode,
-						},
-						resolveWithFullResponse: true
-				};
-				allPromises.push(rp(options));
-		}
-
-		Promise.all(allPromises).catch(function(err) {
-				console.log("An error happened: " + err);
-				errorNames.push({ error: err });
-				return allPromises;
-		}).then(function (files) {
-				for (const data of files) {
-						const document = new JSDOM(data["body"]).window.document;
-						const taxaString = document.getElementsByClassName("url")[0].textContent;
-						if (taxaString === "undefined") {
-								worldNames.push("no result");
-						} else {
-								let updatedName = taxaString.split("/");
-								updatedName = updatedName[updatedName.length - 1];
-								updatedName = updatedName.replace(/-/, " ").trim();
-								worldNames.push(updatedName);
-						}
+				for (const name of names) {
+						const nameEncode = name.replace(/\s/g, "+");
+						const options = {
+								method: "GET",
+								uri: amphibWorld,
+								qs: {
+										stree: "",
+										stree_id: "",
+										basic_query: nameEncode,
+								},
+								resolveWithFullResponse: true
+						};
+						allPromises.push(rp(options));
 				}
-				return { worldNames, errorNames };
+
+				Promise.all(allPromises).catch(function(err) {
+						console.log("An error happened: " + err);
+						errorNames.push({ error: err });
+						return allPromises;
+				}).then(function (files) {
+						for (const data of files) {
+								const document = new JSDOM(data["body"]).window.document;
+								let taxaString = document.getElementsByClassName("url")[0];
+								if (taxaString === undefined) {
+										worldNames.push("no result");
+								} else {
+										taxaString = taxaString.textContent;
+										let updatedName = taxaString.split("/");
+										updatedName = updatedName[updatedName.length - 1];
+										updatedName = updatedName.replace(/-/, " ").trim();
+										worldNames.push(updatedName);
+								}
+						}
+						resolve({ worldNames, errorNames });
+				});
 		});
 }
 
@@ -78,5 +81,5 @@ function parseAmphibiaWeb(names) {
 		return webNames;
 }
 
-console.log(sendQuery(["bufo canorus"]));
-// console.log(parseAmphibiaWeb(["bufo canorus"]));
+module.exports.sendQuery = sendQuery;
+module.exports.parseAmphibiaWeb = parseAmphibiaWeb;
