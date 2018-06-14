@@ -66,16 +66,15 @@ function parseAmphibiaWeb(names) {
 				});
 		}
 
-		for (const name of names) {
-				let located = false;
+		for (let name of names) {
+				name = name.toLowerCase();
 				for (let i = 0; i < parsed.length - 1; i++) {
 						if (parsed[i]["gaaName"].toLowerCase() === name || parsed[i]["itisName"].toLowerCase() === name) {
 								webNames.push(parsed[i]["genusSpecies"]);
-								located = true;
+								break;
+						} else if (i === parsed.length - 2) {
+								webNames.push("no result");
 						}
-				}
-				if (!(located)) {
-						webNames.push("no result");
 				}
 		}
 		return webNames;
