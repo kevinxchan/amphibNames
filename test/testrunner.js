@@ -65,12 +65,11 @@ describe("parseAmphibiaWeb suite", function() {
 				} catch (err) {
 						response = err;
 				} finally {
-						console.log(response);
 						expect(response).to.have.length(51);
 				}
 		});
 
-		it("Should return all valid results", () => {
+		it("Should return all valid results from file with commas", () => {
 				const filepath = "./test/data/frog.full.comma.txt";
 				const res = parseInputFile.parseInputFile(filepath);
 				let response;
@@ -84,6 +83,30 @@ describe("parseAmphibiaWeb suite", function() {
 				}
 		});
 
-		// TODO: change full newline file formatting. something is weird.
-		// Nesionixalus thomensis
+		it("Should return all valid results from file with newlines", () => {
+				const filepath = "./test/data/frog.full.nl.txt";
+				const res = parseInputFile.parseInputFile(filepath);
+				let response;
+
+				try {
+						response = queryDB.parseAmphibiaWeb(res);
+				} catch (err) {
+						response = err;
+				} finally {
+						expect(response).to.have.length(1988);
+				}
+		});
+
+		it("Should update a known name to new taxonomy", () => {
+				let response;
+
+				try {
+						response = queryDB.parseAmphibiaWeb(["Nesionixalus thomensis"]);
+				} catch (err) {
+						response = err;
+				} finally {
+						expect(response).to.have.length(1);
+						expect(response).to.deep.equal(["Hyperolius thomensis"]);
+				}
+		});
 });
