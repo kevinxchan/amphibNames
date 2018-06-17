@@ -62,6 +62,7 @@ function parseAmphibiaWeb(names) {
 				parsed.push({
 						genusSpecies: col[3] + " " + col[5],
 						gaaName: col[7],
+						synonymies: col[8],
 						itisName: col[9]
 				});
 		}
@@ -69,7 +70,9 @@ function parseAmphibiaWeb(names) {
 		for (let name of names) {
 				name = name.toLowerCase();
 				for (let i = 0; i < parsed.length - 1; i++) {
-						if (parsed[i]["gaaName"].toLowerCase() === name || parsed[i]["itisName"].toLowerCase() === name) {
+						if (parsed[i]["gaaName"].toLowerCase() === name
+								|| parsed[i]["itisName"].toLowerCase() === name
+								|| parsed[i]["synonymies"].toLowerCase() === name) {
 								webNames.push(parsed[i]["genusSpecies"]);
 								break;
 						} else if (i === parsed.length - 2) {

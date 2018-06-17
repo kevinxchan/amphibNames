@@ -109,4 +109,17 @@ describe("parseAmphibiaWeb suite", function() {
 						expect(response).to.deep.equal(["Hyperolius thomensis"]);
 				}
 		});
+
+		it("Should update a known synonomy to new taxonomy", () => {
+				let response;
+
+				try {
+						response = queryDB.parseAmphibiaWeb(["Leptopelis barbouri"]);
+				} catch (err) {
+						response = err;
+				} finally {
+						expect(response).to.have.length(1);
+						expect(response).to.deep.equal(["Leptopelis grandiceps"]);
+				}
+		});
 });
