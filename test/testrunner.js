@@ -37,6 +37,62 @@ describe("sendQuery suite", function() {
 						expect(response["worldNames"]).to.deep.equal(["Acanthixalus sonjae", "Afrixalus dorsalis"]);
 				}
 		});
+
+		it("Should return valid results from small query", async () => {
+				const filepath = "./test/data/frog.small.nl.txt";
+				const res = parseInputFile.parseInputFile(filepath);
+				let response;
+
+				try {
+						response = await queryDB.sendQuery(res);
+				} catch (err) {
+						response = err;
+				} finally {
+						expect(response["worldNames"]).to.have.length(51);
+				}
+		});
+
+		it("Should return valid results from query with 100 names", async function() {
+				const filepath = "./test/data/frog.100.nl.txt";
+				const res = parseInputFile.parseInputFile(filepath);
+				let response;
+
+				try {
+						response = await queryDB.sendQuery(res);
+				} catch (err) {
+						response = err;
+				} finally {
+						expect(response["worldNames"]).to.have.length(101);
+				}
+		});
+
+		it("Should return valid results from query with 200 names", async function() {
+				const filepath = "./test/data/frog.200.nl.txt";
+				const res = parseInputFile.parseInputFile(filepath);
+				let response;
+
+				try {
+						response = await queryDB.sendQuery(res);
+				} catch (err) {
+						response = err;
+				} finally {
+						expect(response["worldNames"]).to.have.length(201);
+				}
+		});
+
+		it("Should return valid results from query with 400 names", async function() {
+				const filepath = "./test/data/frog.400.nl.txt";
+				const res = parseInputFile.parseInputFile(filepath);
+				let response;
+
+				try {
+						response = await queryDB.sendQuery(res);
+				} catch (err) {
+						response = err;
+				} finally {
+						expect(response["worldNames"]).to.have.length(401);
+				}
+		});
 });
 
 describe("parseAmphibiaWeb suite", function() {
