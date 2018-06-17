@@ -7,6 +7,7 @@
     "test": "./node_modules/.bin/mocha --reporter spec --timeout 10000"
   },
   "dependencies": {
+    "bluebird": "^3.5.1",
     "chai": "^4.1.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
@@ -18,7 +19,8 @@
     "morgan": "~1.9.0",
     "pug": "2.0.0-beta11",
     "request": "^2.87.0",
-    "request-promise": "^4.2.2"
+    "request-promise": "^4.2.2",
+    "simple-rate-limiter": "^0.2.3"
   },
   "devDependencies": {
     "eslint": "^4.19.1",

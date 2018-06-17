@@ -1,4 +1,5 @@
 /* eslint-disable no-mixed-spaces-and-tabs,indent */
+const Promise = require("bluebird");
 const rp = require("request-promise");
 const fs = require("fs");
 const jsdom = require("jsdom");
@@ -13,7 +14,7 @@ function sendQuery(names) {
 				const worldNames = [];
 				const errorNames = [];
 
-				for (const name of names) {
+				Promise.map(names, function(name) {
 						const nameEncode = name.replace(/\s/g, "+");
 						const options = {
 								method: "GET",
@@ -25,10 +26,8 @@ function sendQuery(names) {
 								},
 								resolveWithFullResponse: true
 						};
-						allPromises.push(rp(options));
-				}
-
-				Promise.all(allPromises).catch(function(err) {
+						return rp(options);
+				}).catch(function(err) {
 						console.log("An error happened: " + err);
 						errorNames.push({ error: err });
 						return allPromises;
