@@ -67,6 +67,7 @@ describe("sendQuery suite", function() {
 		});
 
 		it("Should return valid results from query with 200 names", async function() {
+				this.timeout(30000);
 				const filepath = "./test/data/frog.200.nl.txt";
 				const res = parseInputFile.parseInputFile(filepath);
 				let response;
@@ -80,7 +81,9 @@ describe("sendQuery suite", function() {
 				}
 		});
 
+		// TODO: consider removing this test due to slow response
 		it("Should return valid results from query with 400 names", async function() {
+				this.timeout(50000);
 				const filepath = "./test/data/frog.400.nl.txt";
 				const res = parseInputFile.parseInputFile(filepath);
 				let response;
