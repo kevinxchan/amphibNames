@@ -1,19 +1,5 @@
-extends layout
-
 block content
-    form(action="." method="POST")
-        label(for="name") Name:
-        input(
-            type="text"
-            id="name"
-            name="name"
-        )
-
-        label(for="email") Email:
-        input(
-            type="email"
-            id="email"
-            name="email"
-        )
-
-        input(type="submit" value="Submit")
+    link(rel="stylesheet", href="./javascripts/dist/dropzone.css")
+    script(src="./javascripts/dist/dropzone.js")
+    form(action="/upload", method="POST", enctype="multipart/form-data", class="dropzone needsclick dz-clickable", id="upload-widget")
+    script(src="./javascripts/test.js")
