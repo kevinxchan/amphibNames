@@ -15,17 +15,17 @@ Chiromantis rufescens
 Dendropsophus brevifrons
 Dendropsophus minusculus
 Hypsiboas boans
-Hypsiboaslcaratus
+Hypsiboas calcaratus
 Hypsiboas geographicus
 Hypsiboas granosus
 Osteocephalus leprieurii
 Osteocephalus oophagus
 Osteocephalus taurinus
-HeterixalusconvertUTF82Char: error1 BE!tsileo
+Heterixalus calcaratus
 Heterixalus madagascariensis
 Heterixalus punctatus
 Anodonthyla boulengeri
-PlatypelisconvertUTF82Char: error1 BA!rbouri
+Platypelis barbouri
 Platypelis grandis
 Platypelis pollicaris
 Platypelis tuberifera
