@@ -43,6 +43,7 @@ function sendQuery(names) {
 										updatedName = updatedName[updatedName.length - 1];
 										updatedName = updatedName.replace(/-/, " ").trim();
 										worldNames.push(updatedName);
+										errorNames.push("");
 								}
 						}
 						resolve({ worldNames, errorNames });
