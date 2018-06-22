@@ -35,4 +35,3 @@ function writeToDisk(file) {
 }
 
 module.exports.writeToDisk = writeToDisk;
-writeToDisk("test/data/frog.double.nl.txt");
