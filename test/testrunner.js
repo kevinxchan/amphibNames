@@ -1,7 +1,9 @@
 /* eslint-disable indent */
+const fs = require("fs");
 const expect = require("chai").expect;
 const parseInputFile = require("../src/parser/fileparser.js");
 const queryDB = require("../src/querydb.js");
+const wget = require("node-wget");
 
 describe("Input file parsing", function () {
 		it("Should parse two line file separated by newline", () => {
@@ -98,7 +100,7 @@ describe("sendQuery suite", function() {
 		});
 });
 
-describe("parseAmphibiaWeb suite", function() {
+describe.only("parseAmphibiaWeb suite", function() {
 		it("Should return two valid results from parsing names", () => {
 				const filepath = "./test/data/frog.double.nl.txt";
 				const res = parseInputFile.parseInputFile(filepath);
@@ -179,6 +181,20 @@ describe("parseAmphibiaWeb suite", function() {
 				} finally {
 						expect(response).to.have.length(1);
 						expect(response).to.deep.equal(["Leptopelis grandiceps"]);
+				}
+		});
+
+		it("Should skip if DB file is not found", () => {
+				let response;
+
+				try {
+						fs.unlinkSync("src/data/amphib_names.txt");
+						response = queryDB.parseAmphibiaWeb(["Leptopelis grandiceps"]);
+				} catch (err) {
+						response = err;
+				} finally {
+						expect(response).to.have.length(0);
+						wget({ url: "https://amphibiaweb.org/amphib_names.txt", dest: "src/data/" });
 				}
 		});
 });

@@ -51,31 +51,36 @@ function sendQuery(names) {
 }
 
 function parseAmphibiaWeb(names) {
-		const fp = "./src/data/amphib_names.txt";
+		const fp = "src/data/amphib_names.txt";
 		const parsed = [];
 		const webNames = [];
-		const file = fs.readFileSync(fp, "utf8");
-		const lines = file.split("\n");
-		for (const line of lines) {
-				const col = line.split("\t");
-				parsed.push({
-						genusSpecies: col[3] + " " + col[5],
-						gaaName: col[7],
-						synonymies: col[8],
-						itisName: col[9]
-				});
-		}
 
-		for (let name of names) {
-				name = name.toLowerCase();
-				for (let i = 0; i < parsed.length - 1; i++) {
-						if (parsed[i]["gaaName"].toLowerCase() === name
-								|| parsed[i]["itisName"].toLowerCase() === name
-								|| parsed[i]["synonymies"].toLowerCase() === name) {
-								webNames.push(parsed[i]["genusSpecies"]);
-								break;
-						} else if (i === parsed.length - 2) {
-								webNames.push("no result");
+		if (!(fs.existsSync(fp))) {
+				console.log("Amphibia Web file not found! Skipping...");
+		} else {
+				const file = fs.readFileSync(fp, "utf8");
+				const lines = file.split("\n");
+				for (const line of lines) {
+						const col = line.split("\t");
+						parsed.push({
+								genusSpecies: col[3] + " " + col[5],
+								gaaName: col[7],
+								synonymies: col[8],
+								itisName: col[9]
+						});
+				}
+
+				for (let name of names) {
+						name = name.toLowerCase();
+						for (let i = 0; i < parsed.length - 1; i++) {
+								if (parsed[i]["gaaName"].toLowerCase() === name
+										|| parsed[i]["itisName"].toLowerCase() === name
+										|| parsed[i]["synonymies"].toLowerCase() === name) {
+										webNames.push(parsed[i]["genusSpecies"]);
+										break;
+								} else if (i === parsed.length - 2) {
+										webNames.push("no result");
+								}
 						}
 				}
 		}
