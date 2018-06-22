@@ -15,14 +15,13 @@ function sendQuery(names) {
 				const errorNames = [];
 
 				Promise.map(names, function(name) {
-						const nameEncode = name.replace(/\s/g, "+");
 						const options = {
 								method: "GET",
 								uri: amphibWorld,
 								qs: {
 										stree: "",
 										stree_id: "",
-										basic_query: nameEncode,
+										basic_query: name,
 								},
 								resolveWithFullResponse: true
 						};

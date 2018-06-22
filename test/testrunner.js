@@ -35,10 +35,35 @@ describe("sendQuery suite", function() {
 						response = err;
 				} finally {
 						expect(response["worldNames"]).to.have.length(2);
-						expect(response["errorNames"]).to.have.length(0);
+						expect(response["errorNames"]).to.have.length(2);
 						expect(response["worldNames"]).to.deep.equal(["Acanthixalus sonjae", "Afrixalus dorsalis"]);
 				}
 		});
+
+		it("Should return correct result from single query", async () => {
+				let response;
+
+				try {
+						response = await queryDB.sendQuery(["Plethodontohyla sp. a"]);
+				} catch (err) {
+						response = err;
+				} finally {
+						expect(response["worldNames"]).to.contain("Plethodontohyla");
+				}
+		});
+
+		it("Should return correct result from another single query", async () => {
+				let response;
+
+				try {
+						response = await queryDB.sendQuery(["Boophis sp. a"]);
+				} catch (err) {
+						response = err;
+				} finally {
+						expect(response["worldNames"]).to.contain("Boophis");
+				}
+		});
+
 
 		it("Should return valid results from small query", async () => {
 				const filepath = "./test/data/frog.small.nl.txt";
@@ -84,23 +109,23 @@ describe("sendQuery suite", function() {
 		});
 
 		// TODO: consider removing this test due to slow response
-		it("Should return valid results from query with 400 names", async function() {
-				this.timeout(50000);
-				const filepath = "./test/data/frog.400.nl.txt";
-				const res = parseInputFile.parseInputFile(filepath);
-				let response;
-
-				try {
-						response = await queryDB.sendQuery(res);
-				} catch (err) {
-						response = err;
-				} finally {
-						expect(response["worldNames"]).to.have.length(401);
-				}
-		});
+		// it.only("Should return valid results from query with 400 names", async function() {
+		// 		this.timeout(50000);
+		// 		const filepath = "./test/data/frog.400.nl.txt";
+		// 		const res = parseInputFile.parseInputFile(filepath);
+		// 		let response;
+		//
+		// 		try {
+		// 				response = await queryDB.sendQuery(res);
+		// 		} catch (err) {
+		// 				response = err;
+		// 		} finally {
+		// 				expect(response["worldNames"]).to.have.length(401);
+		// 		}
+		// });
 });
 
-describe.only("parseAmphibiaWeb suite", function() {
+describe("parseAmphibiaWeb suite", function() {
 		it("Should return two valid results from parsing names", () => {
 				const filepath = "./test/data/frog.double.nl.txt";
 				const res = parseInputFile.parseInputFile(filepath);
