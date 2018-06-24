@@ -1,9 +1,11 @@
 /* eslint-disable indent */
 const fs = require("fs");
-const expect = require("chai").expect;
+const chai = require("chai");
+chai.use(require("chai-fs"));
+const expect = chai.expect;
+const download = require("download-file");
 const parseInputFile = require("../src/parser/fileparser.js");
 const queryDB = require("../src/querydb.js");
-const wget = require("node-wget");
 
 describe("Input file parsing", function () {
 		it("Should parse two line file separated by newline", () => {
@@ -80,6 +82,7 @@ describe("sendQuery suite", function() {
 		});
 
 		it("Should return valid results from query with 100 names", async function() {
+				this.timeout(30000);
 				const filepath = "./test/data/frog.100.nl.txt";
 				const res = parseInputFile.parseInputFile(filepath);
 				let response;
@@ -126,6 +129,26 @@ describe("sendQuery suite", function() {
 });
 
 describe("parseAmphibiaWeb suite", function() {
+		before(() => {
+				return new Promise((resolve) => {
+						console.log("checking for taxonomy table existence...");
+						if (!(fs.existsSync("./src/data/amphib_names.txt"))) {
+								const options = { directory: "./src/data/", filename: "amphib_names.txt" };
+								console.log("taxonomy table doesn't exist, downloading...");
+								download("https://amphibiaweb.org/amphib_names.txt", options, function(err) {
+										if (err) {
+												throw err;
+										}
+										expect("./src/data/amphib_names.txt").to.be.a.file("must be a file");
+										resolve();
+								});
+						} else {
+								console.log("taxonomy table exists");
+								resolve();
+						}
+				});
+		});
+
 		it("Should return two valid results from parsing names", () => {
 				const filepath = "./test/data/frog.double.nl.txt";
 				const res = parseInputFile.parseInputFile(filepath);
@@ -209,8 +232,9 @@ describe("parseAmphibiaWeb suite", function() {
 				}
 		});
 
-		it("Should skip if DB file is not found", () => {
+		it("Should skip if DB file is not found", async function() {
 				let response;
+				const options = { directory: "./src/data/", filename: "amphib_names.txt" };
 
 				try {
 						fs.unlinkSync("src/data/amphib_names.txt");
@@ -219,7 +243,12 @@ describe("parseAmphibiaWeb suite", function() {
 						response = err;
 				} finally {
 						expect(response).to.have.length(0);
-						wget({ url: "https://amphibiaweb.org/amphib_names.txt", dest: "src/data/" });
+						await download("https://amphibiaweb.org/amphib_names.txt", options, function(err) {
+								if (err) {
+										throw err;
+								}
+						});
+
 				}
 		});
 });
