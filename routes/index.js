@@ -1,9 +1,15 @@
-var express = require('express')
-var router = express.Router()
+/* eslint-disable indent */
+const express = require("express");
+const router = express.Router();
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express' })
-})
+router.get("/", function (req, res) {
+    res.render("index", { title: "amphibNames" });
+    // res.render("form", { title: "amphibNames" });
+});
 
-module.exports = router
+router.post("/", (req, res) => {
+		res.render("form", { title: "post" });
+});
+
+module.exports = router;

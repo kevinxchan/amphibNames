@@ -9,3 +9,4 @@ amphibNames.iml
 # test files and output
 test.gen.xlsx
 src/out/table.txt
+src/data/
