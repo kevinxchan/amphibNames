@@ -1,8 +1,10 @@
 doctype html
 html
   head
+    link(href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet")
     title= `${title}`
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    h1 amphibNames
+    h1 amphibNames   
+      i(class="em em-frog")
     block content
