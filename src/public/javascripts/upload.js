@@ -12,32 +12,36 @@ $("#upload-input").on("change", function() {
         for (const file of files) {
             formData.append("uploads[]", file, file.name);
         }
-    }
-});
 
-$.ajax({
-    url: "/upload",
-    type: "POST",
-    processData: false,
-    contentType: false,
-    success: function(data) {
-        console.log("upload successful!");
-    },
-    xhr: function() {
-        const xhr = new XMLHttpRequest();
-        xhr.upload.addEventListener("progress", function(evt) {
-            if (evt.lengthComputable) {
-                let percComplete = evt.loaded / evt.total;
-                percComplete = parseInt(percComplete * 100);
-                $(".progress-bar").text(percComplete + "%");
-                $(".progress-bar").width(percComplete + "%");
+        $.ajax({
+            url: "/upload",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            error: function(xhr, status, err) {
+                alert(err);
+            },
+            success: function(data) {
+                console.log("upload successful!");
+            },
+            xhr: function() {
+                const xhr = new XMLHttpRequest();
+                xhr.upload.addEventListener("progress", function(evt) {
+                    if (evt.lengthComputable) {
+                        let percComplete = evt.loaded / evt.total;
+                        percComplete = parseInt(percComplete * 100);
+                        $(".progress-bar").text(percComplete + "%");
+                        $(".progress-bar").width(percComplete + "%");
 
-                if (percComplete === 100) {
-                    $(".progress-bar").html("Done!");
-                }
+                        if (percComplete === 100) {
+                            $(".progress-bar").html("Done!");
+                        }
+                    }
+                }, false);
+
+                return xhr;
             }
-        }, false);
-
-        return xhr;
+        });
     }
 });
