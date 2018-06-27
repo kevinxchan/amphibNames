@@ -11,7 +11,7 @@ a {
     display: none;
 }
 
-.btn:focus, .upload-btn:focus{
+.btn:focus, .upload-btn:focus {
     outline: 0 !important;
 }
 
@@ -30,6 +30,12 @@ body {
 }
 
 .upload-btn {
+    color: #ffffff;
+    background-color: #F89406;
+    border: none;
+}
+
+.query-form {
     color: #ffffff;
     background-color: #F89406;
     border: none;
@@ -67,6 +73,37 @@ h2 {
 #upload-input {
     display: none;
 }
+
+.divider {
+    width: 20px;
+    height: auto;
+    display: inline-block;
+}
+
+form {
+    display: inline;
+}
+
+input:focus {
+    outline: 0 !important;
+}
+
+
+input[type=submit] {
+    color: #ffffff;
+    background-color: #F89406;
+    border: none;
+}
+
+input:hover,
+input:focus,
+input:active,
+input.active {
+    color: #ffffff;
+    background-color: #FA8900;
+    border: none;
+}
+
 
 @media (min-width: 768px) {
     .main-container {
