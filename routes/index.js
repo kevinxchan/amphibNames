@@ -13,21 +13,23 @@ router.get("/", function (req, res) {
 router.post("/upload", (req, res) => {
 		const uploadPath = path.join(__dirname + "/uploads");
 		const form = formidable.IncomingForm();
-		form.multiples = true;
+		form.multiples = false;
 
 		if (!(fs.existsSync(uploadPath))) {
 				fs.mkdirSync(uploadPath);
 		}
 
 		form.uploadDir = uploadPath;
-		form.on("upload", function(field, file) {
-				fs.rename(file.path, path.join(form.uploadDir, file.name));
+		form.on("file", function(field, file) {
+				fs.renameSync(file.path, path.join(form.uploadDir, file.name));
 		});
 		form.on("error", function(err) {
-				console.log("error " + err);
+				console.log("ERROR: " + err);
+				res.status(400).send(err);
 		});
 		form.on("end", function() {
-				res.send("success");
+				console.log("file successfully uploaded");
+				res.status(200).send("success");
 		});
 		form.parse(req);
 });

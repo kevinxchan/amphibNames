@@ -1,4 +1,4 @@
-// TODO: follow https://coligo.io/building-ajax-file-uploader-with-node/ starting @ upload.js file
+/* eslint-disable no-mixed-spaces-and-tabs */
 $(".upload-btn").on("click", function() {
     $("#upload-input").click();
     $(".progress-bar").text("0%");
@@ -6,12 +6,10 @@ $(".upload-btn").on("click", function() {
 });
 
 $("#upload-input").on("change", function() {
-    const files = $(this).get(0).files;
-    if (files.length > 0) {
+    const file = $(this).get(0).files[0];
+    if ((file.name).match(/.*\.txt/)) {
         const formData = new FormData();
-        for (const file of files) {
-            formData.append("uploads[]", file, file.name);
-        }
+        formData.append("upload", file, file.name);
 
         $.ajax({
             url: "/upload",
@@ -19,11 +17,13 @@ $("#upload-input").on("change", function() {
             data: formData,
             processData: false,
             contentType: false,
-            error: function(xhr, status, err) {
-                alert(err);
-            },
-            success: function(data) {
-                console.log("upload successful!");
+            statusCode: {
+                400: function(xhr, status, err) {
+                    alert(err.message);
+                },
+                200: function(data, status, xhr) {
+                    console.log("upload successful!");
+                }
             },
             xhr: function() {
                 const xhr = new XMLHttpRequest();
@@ -43,5 +43,7 @@ $("#upload-input").on("change", function() {
                 return xhr;
             }
         });
+    } else {
+    		alert("Please upload .txt files only!");
     }
 });
