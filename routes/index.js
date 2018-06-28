@@ -4,6 +4,7 @@ const router = express.Router();
 const formidable = require("formidable");
 const fs = require("fs");
 const path = require("path");
+const writeFile = require("../src/writeFile");
 
 /* GET home page. */
 router.get("/", function (req, res) {
@@ -32,6 +33,15 @@ router.post("/upload", (req, res) => {
 				res.status(200).send("success");
 		});
 		form.parse(req);
+});
+
+router.post("/query", (req, res) => {
+		const uploadPath = path.join(__dirname, "uploads");
+		if (fs.existsSync(uploadPath)) {
+				fs.readdirSync(uploadPath).forEach((file) => {
+						writeFile.writeToDisk(path.join(uploadPath, file));
+				});
+		}
 });
 
 module.exports = router;
