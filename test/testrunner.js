@@ -232,6 +232,19 @@ describe("parseAmphibiaWeb suite", function() {
 				}
 		});
 
+		it("Should give back no result from strange query", () => {
+				let response;
+
+				try {
+						response = queryDB.parseAmphibiaWeb(["asdfasdf fddd", "hello world", "magicalis beastius froggitus"]);
+				} catch (err) {
+						response = err;
+				} finally {
+						expect(response).to.have.length(3);
+						expect(response).to.deep.equal(["no result", "no result", "no result"]);
+				}
+		});
+
 		it("Should skip if DB file is not found", async function() {
 				let response;
 				const options = { directory: "./src/data/", filename: "amphib_names.txt" };

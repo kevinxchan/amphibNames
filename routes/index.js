@@ -38,9 +38,17 @@ router.post("/upload", (req, res) => {
 router.post("/query", (req, res) => {
 		const uploadPath = path.join(__dirname, "uploads");
 		if (fs.existsSync(uploadPath)) {
-				fs.readdirSync(uploadPath).forEach((file) => {
-						writeFile.writeToDisk(path.join(uploadPath, file));
-				});
+				const uploadDir = fs.readdirSync(uploadPath);
+				if (uploadDir.length === 0) {
+						res.redirect("/");
+						res.end();
+				} else {
+						fs.readdirSync(uploadPath).forEach((file) => {
+								writeFile.writeToDisk(path.join(uploadPath, file));
+								res.redirect("query");
+								res.end();
+						});
+				}
 		}
 });
 
