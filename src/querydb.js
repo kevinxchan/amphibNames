@@ -57,6 +57,7 @@ function parseAmphibiaWeb(names) {
 
 		if (!(fs.existsSync(fp))) {
 				console.log("Amphibia Web file not found! Skipping...");
+				return webNames.fill("no result", 0, names.length - 1);
 		} else {
 				const file = fs.readFileSync(fp, "utf8");
 				const lines = file.split("\n");
@@ -83,8 +84,8 @@ function parseAmphibiaWeb(names) {
 								}
 						}
 				}
+				return webNames;
 		}
-		return webNames;
 }
 
 module.exports.sendQuery = sendQuery;
