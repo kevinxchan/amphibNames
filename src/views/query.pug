@@ -1,0 +1,22 @@
+extends layout
+
+mixin tableResults()
+    script(src="javascripts/renderTable.js")
+    - var obj = renderTable;
+    table(id="query-results")
+        tr#header
+            th Query Name
+            th Amphibia Web
+            th Amphibian Species of the World
+            th Errors
+        - for (var i = 1; i < 10; i++)
+            tr
+                td=obj.queryNames[i]
+                td=obj.amphibWebNames[i]
+                td=obj.worldNames[i]
+                td=obj.errors[i]
+
+block content
+    body
+        p Preview the first ten results...
+        +tableResults()
