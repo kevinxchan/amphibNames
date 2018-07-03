@@ -6,10 +6,25 @@ block content
         p
             | Taxonomies of amphibians are constantly being updated as new research introduces new findings, and
             | updates to the tree of life. Therefore, amphibNames is a tool to allow batch updating of amphibian
-            | taxonomy strings in the form of genus-species. It takes in a .txt file delimited by newlines or commas,
-            | looks each entry up in (currently) two databases, and retrieves the most recent taxonomy assigned to
-            | that organism. The databases amphibNames uses are the
+            | taxonomy strings in the form of genus-species. Each entry is looked up in (currently) two databases, and
+            | the most recent taxonomy assigned to that organism is retrieved and written to an output file,
+            | available for download. The databases amphibNames uses are the
             | #[a(href="http://research.amnh.org/vz/herpetology/amphibia/", class="hvr-float") Amphibian Species of the World],
             | and #[a(href="https://amphibiaweb.org/", class="hvr-float") AmphibiaWeb].
+        h3 Example files and output
+        p
+            | Input files can come in two formats, both of which end with a .txt extension. Each entry must be of the form
+            | "genus species". Here is an example of an input file separated by newlines:
+            br
+            script(src="https://gist.github.com/kevinxchan/33284f2ceb911aac27243163dd26c762.js")
+            | And the same input file, but separated by commas:
+            br
+            br
+            script(src="https://gist.github.com/kevinxchan/1456bafb6f1da8b0acbf1fba7afe138f.js")
+            | After querying, the output file will be in tab-delimited format, with four columns: the first is the
+            | input query names, the second column is the taxa strings retrieved from AmphibiaWeb, the third is taxa
+            | strings from the Amphibian Species of the World database, and the last column as any errors
+            | which occurred during querying.
+        h3 Let's get started!
         p To get started, upload a .txt file containing a list of genus-species names delimited by commas or newlines below.
         include form
