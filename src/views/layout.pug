@@ -4,8 +4,11 @@ html
         title= `${title}`
         link(href="bootstrap/bootstrap.css", rel="stylesheet")
         link(href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet")
+        link(rel="icon", href="http://sstatic.net/stackoverflow/img/favicon.ico")
         .page-header
-            h1 amphibNames
+            h1 #[a(href="/") #[i(class="em em-frog", style="vertical-align: text-bottom;")]] amphibNames
                 small(class="text-muted", style="padding-left: 10px;") Batch updates of amphibian taxonomies
     body
         block content
+
+    include templates/footer

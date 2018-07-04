@@ -1,6 +1,8 @@
 body {
     padding: 50px;
     font-family: 'Raleway', sans-serif;
+    display: flex;
+    flex-direction: column;
 }
 
 a {
@@ -22,6 +24,7 @@ a:hover {
 
 html,
 body {
+    position: relative;
     height: 100%;
     background-color: #5CDB95;
     color: #EDF5E1;
@@ -118,7 +121,7 @@ input.active {
 /* Query table results */
 table, caption {
     width: 100%;
-    border: 1px solid gray;
+    border: 2px solid black;
 }
 
 th, td {
@@ -134,14 +137,16 @@ td {
     height: 30px;
 }
 
-tr:hover {background-color: #f5f5f5;}
-tr:nth-child(even) {background-color: #DAF7A6;}
+tr:hover {background-color: #8EE4AF;}
+tr:nth-child(odd) {background-color: #05386B;}
+tr:nth-child(even) {background-color: #379683;}
 
 caption {
-    height: 30px;
     text-align: center;
     vertical-align: middle;
     white-space: nowrap;
+    background-color: #05386B;
+    color: #EDF5E1;
 }
 
 /* added CSS for styling */
@@ -153,10 +158,30 @@ small {
     color: #EDF5E1;
 }
 
+.gist .blob-code {
+    color: #EDF5E1;
+}
+
+.content {
+    flex: 1 0 auto;
+    flex-direction: row;
+}
+
+.footer {
+    flex-shrink: 0;
+    text-align: center;
+}
+
+.glyphicon.glyphicon-one-fine-dot:before {
+    content: "\25cf";
+    font-size: 0.5em;
+    vertical-align: baseline;
+}
+
 /* floating effect when hovering on link from hover.css */
 .hvr-float {
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: baseline;
     -webkit-transform: perspective(1px) translateZ(0);
     transform: perspective(1px) translateZ(0);
     box-shadow: 0 0 1px rgba(0, 0, 0, 0);

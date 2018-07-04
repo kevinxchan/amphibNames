@@ -3,9 +3,10 @@ extends layout
 mixin tableResults()
     script(src="javascripts/renderTable.js")
     - var obj = renderTable;
-    table(id="query-results")
-        tr#header
-            th Query Name
+    table(id="query-results", class="table")
+        caption Preview of the first ten queries
+        tr#header-names
+            th(scope="col") Query Name
             th Amphibia Web
             th Amphibian Species of the World
             th Errors
@@ -17,6 +18,7 @@ mixin tableResults()
                 td=obj.errors[i]
 
 block content
+    include templates/head
     body
-        p Preview the first ten results...
+        p Your download should start shortly. If not, click #[a(href="#", class="hvr-float") here] to download.
         +tableResults()
