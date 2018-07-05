@@ -178,6 +178,13 @@ small {
     vertical-align: baseline;
 }
 
+#download-link {
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+    color: #767a70;
+}
+
 /* floating effect when hovering on link from hover.css */
 .hvr-float {
     display: inline-block;
