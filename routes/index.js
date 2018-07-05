@@ -44,9 +44,11 @@ router.post("/query", (req, res) => {
 						res.end();
 				} else {
 						fs.readdirSync(uploadPath).forEach((file) => {
-								writeFile.writeToDisk(path.join(uploadPath, file));
-								res.redirect("query");
-								res.end();
+								writeFile.writeToDisk(path.join(uploadPath, file)).then(function() {
+										res.redirect("query");
+										fs.unlinkSync(path.join(uploadPath, file));
+										res.end();
+								});
 						});
 				}
 		}
