@@ -10,3 +10,4 @@ amphibNames.iml
 test.gen.xlsx
 src/out/table.txt
 src/data/
+routes/uploads/

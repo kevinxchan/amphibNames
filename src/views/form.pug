@@ -1,5 +1,23 @@
-block content
-    link(rel="stylesheet", href="./javascripts/dist/dropzone.css")
-    script(src="./javascripts/dist/dropzone.js")
-    form(action="/upload", method="POST", enctype="multipart/form-data", class="dropzone needsclick dz-clickable", id="upload-widget")
-    script(src="./javascripts/test.js")
+include templates/head
+body
+    .upload-box
+        .container
+            .row
+                .col-xs-12
+                    .panel.panel-default
+                        .panel-body
+                            span.glyphicon.glyphicon-cloud-upload(style="color: #05386B;")
+                            br
+                            br
+                            button.btn.btn-lg.upload-btn(type="button") Upload File
+                            input#upload-input(type="file", accept=".txt", name="upload")
+                            br
+                            br
+                            .progress
+                                .progress-bar(role="progressbar")
+                            form(action="/query", method="POST")
+                                input.input-lg#query-input(type="submit" value="Query")
+    br
+    script(src="https://code.jquery.com/jquery-2.2.0.min.js")
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js")
+    script(src="javascripts/upload.js")

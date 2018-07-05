@@ -1,0 +1,24 @@
+extends layout
+
+mixin tableResults()
+    script(src="javascripts/renderTable.js")
+    - var obj = renderTable;
+    table(id="query-results", class="table")
+        caption Preview of the first ten queries
+        tr#header-names
+            th(scope="col") Query Name
+            th Amphibia Web
+            th Amphibian Species of the World
+            th Errors
+        - for (var i = 1; i < 10; i++)
+            tr
+                td=obj.queryNames[i]
+                td=obj.amphibWebNames[i]
+                td=obj.worldNames[i]
+                td=obj.errors[i]
+
+block content
+    include templates/head
+    body
+        p Your download should start shortly. If not, click #[a(href="#", class="hvr-float") here] to download.
+        +tableResults()
