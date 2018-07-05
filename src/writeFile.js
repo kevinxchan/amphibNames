@@ -16,21 +16,23 @@ function writeToDisk(file) {
 		let amphibWorldSpecies = [];
     let errors = [];
 
-    queryDB.sendQuery(parsed).then(function(resolve) {
-    		amphibWorldSpecies = resolve["worldNames"];
-    		errors = resolve["errorNames"];
+    return new Promise(function(resolve, reject) {
+				queryDB.sendQuery(parsed).then(function(data) {
+						amphibWorldSpecies = data["worldNames"];
+						errors = data["errorNames"];
 
-				if (!(fs.existsSync(outpath))) {
-						fs.mkdirSync(outpath);
-				}
+						if (!(fs.existsSync(outpath))) {
+								fs.mkdirSync(outpath);
+						}
 
-				const header = "query_name" + "\t" +  "amphibia_web" + "\t" + "amphibian_species_of_the_world" + "\t" + "errors" + "\t" + "\n";
-				writeStream.write(header);
-				for (let i = 0; i < parsed.length; i++) {
-						const line = parsed[i] + "\t" + amphibWebSpecies[i] + "\t" + amphibWorldSpecies[i] + "\t" + errors[i] + "\n";
-						writeStream.write(line);
-				}
-
+						const header = "query_name" + "\t" +  "amphibia_web" + "\t" + "amphibian_species_of_the_world" + "\t" + "errors" + "\t" + "\n";
+						writeStream.write(header);
+						for (let i = 0; i < parsed.length; i++) {
+								const line = parsed[i] + "\t" + amphibWebSpecies[i] + "\t" + amphibWorldSpecies[i] + "\t" + errors[i] + "\n";
+								writeStream.write(line);
+						}
+						resolve();
+				});
 		});
 }
 

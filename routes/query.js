@@ -1,11 +1,12 @@
 const express = require("express");
-const renderTable = require("../src/public/javascripts/renderTable").renderTable();
+const renderTable = require("../src/public/javascripts/renderTable");
 const router = express.Router();
 const path = require("path");
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
-    res.render("query", { title: "amphibNames", renderTable: renderTable });
+    const callRenderTable = renderTable.renderTable();
+    res.render("query", { title: "amphibNames", renderTable: callRenderTable });
 });
 
 router.get("/download", function (req, res, next) {
