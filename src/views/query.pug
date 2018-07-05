@@ -20,5 +20,6 @@ mixin tableResults()
 block content
     include templates/head
     body
-        p Your download should start shortly. If not, click #[a(href="#", class="hvr-float") here] to download.
+        form(action="/query/download", method="GET")
+            p Click #[button#download-link(class="btn btn-link") here] to download the full table.
         +tableResults()
