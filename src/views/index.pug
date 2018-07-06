@@ -1,6 +1,8 @@
 extends layout
 
 block content
+    script(src="javascripts/downloadTaxonomy.js")
+    - var download = downloadTaxonomy.downloadTaxonomy();
     body
         .main
             h3 What is amphibNames?
@@ -12,6 +14,11 @@ block content
                 | available for download. The databases amphibNames uses are the
                 | #[a(href="http://research.amnh.org/vz/herpetology/amphibia/", class="hvr-float") Amphibian Species of the World],
                 | and #[a(href="https://amphibiaweb.org/", class="hvr-float") AmphibiaWeb].
+            h3 Prerequisites
+            p
+                | Querying AmphibiaWeb requires a local installation of their taxonomy database. If one is not installed,
+                | or is not up-to-date (taxonomies are updated on a nightly basis, so update at your own discretion),
+                | click #[button#download-link(class="btn btn-link", onclick="!{download}") here] to get the latest copy.
             h3 Example files and output
             p
                 | Input files can come in two formats, both of which end with a .txt extension. Each entry must be of the form

@@ -5,10 +5,11 @@ const formidable = require("formidable");
 const fs = require("fs");
 const path = require("path");
 const writeFile = require("../src/writeFile");
+const downloadTaxonomy = require("../src/public/javascripts/downloadTaxonomy");
 
 /* GET home page. */
 router.get("/", function (req, res) {
-    res.render("index", { title: "amphibNames" });
+    res.render("index", { title: "amphibNames", downloadTaxonomy: downloadTaxonomy });
 });
 
 router.post("/upload", (req, res) => {
