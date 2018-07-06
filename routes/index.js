@@ -9,7 +9,7 @@ const downloadTaxonomy = require("../src/public/javascripts/downloadTaxonomy");
 
 /* GET home page. */
 router.get("/", function (req, res) {
-    res.render("index", { title: "amphibNames", downloadTaxonomy: downloadTaxonomy });
+    res.render("index", { title: "amphibNames" });
 });
 
 router.post("/upload", (req, res) => {
@@ -51,11 +51,22 @@ router.post("/query", (req, res, next) => {
 										res.status(200).end();
 								}).catch(function(err) {
 										res.status(400);
+										fs.unlinkSync(path.join(uploadPath, file));
 										res.render("uploaderror", { error: err });
 								});
 						});
 				}
 		}
 });
+
+router.get("/taxa", (req, res) => {
+		downloadTaxonomy.downloadTaxonomy().then(function() {
+				res.status(200).jsonp({ success: true });
+				res.end();
+		}).catch(function(err) {
+				res.render("error", { error: err });
+		});
+});
+
 
 module.exports = router;
