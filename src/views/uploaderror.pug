@@ -1,0 +1,12 @@
+extends layout
+
+block content
+    include templates/head
+    body
+        div(class="alert alert-danger", role="alert")
+            font(size="4")
+                | Something went wrong with your submission
+                | #[simple-svg(data-icon="entypo-emoji-sad")]
+            br
+            font(size="4")
+                | Please try again.

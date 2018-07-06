@@ -35,7 +35,7 @@ router.post("/upload", (req, res) => {
 		form.parse(req);
 });
 
-router.post("/query", (req, res) => {
+router.post("/query", (req, res, next) => {
 		const uploadPath = path.join(__dirname, "uploads");
 		if (fs.existsSync(uploadPath)) {
 				const uploadDir = fs.readdirSync(uploadPath);
@@ -47,7 +47,10 @@ router.post("/query", (req, res) => {
 								writeFile.writeToDisk(path.join(uploadPath, file)).then(function() {
 										res.redirect("query");
 										fs.unlinkSync(path.join(uploadPath, file));
-										res.end();
+										res.status(200).end();
+								}).catch(function(err) {
+										res.status(400);
+										res.render("uploaderror", { error: err });
 								});
 						});
 				}
