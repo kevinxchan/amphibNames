@@ -9,13 +9,11 @@ mixin tableResults()
             th(scope="col") Query Name
             th Amphibia Web
             th Amphibian Species of the World
-            th Errors
         - for (var i = 1; i < 10; i++)
             tr
                 td=obj.queryNames[i]
                 td=obj.amphibWebNames[i]
                 td=obj.worldNames[i]
-                td=obj.errors[i]
 
 block content
     include templates/head

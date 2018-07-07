@@ -26,10 +26,6 @@ function sendQuery(names) {
 								resolveWithFullResponse: true
 						};
 						return rp(options);
-				}).catch(function(err) {
-						console.log("An error happened: " + err);
-						errorNames.push({ error: err });
-						return allPromises;
 				}).then(function (files) {
 						for (const data of files) {
 								const document = new JSDOM(data["body"]).window.document;
@@ -46,6 +42,9 @@ function sendQuery(names) {
 								}
 						}
 						resolve({ worldNames, errorNames });
+				}).catch(function(err) {
+						console.log("An error happened: " + err);
+						reject(err);
 				});
 		});
 }

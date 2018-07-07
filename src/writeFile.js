@@ -25,13 +25,15 @@ function writeToDisk(file) {
 								fs.mkdirSync(outpath);
 						}
 
-						const header = "query_name" + "\t" +  "amphibia_web" + "\t" + "amphibian_species_of_the_world" + "\t" + "errors" + "\t" + "\n";
+						const header = "query_name" + "\t" +  "amphibia_web" + "\t" + "amphibian_species_of_the_world" + "\n";
 						writeStream.write(header);
 						for (let i = 0; i < parsed.length; i++) {
-								const line = parsed[i] + "\t" + amphibWebSpecies[i] + "\t" + amphibWorldSpecies[i] + "\t" + errors[i] + "\n";
+								const line = parsed[i] + "\t" + amphibWebSpecies[i] + "\t" + amphibWorldSpecies[i] + "\n";
 								writeStream.write(line);
 						}
 						resolve();
+				}).catch(function(err) {
+						reject(err);
 				});
 		});
 }

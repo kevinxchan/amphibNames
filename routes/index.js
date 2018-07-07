@@ -5,6 +5,7 @@ const formidable = require("formidable");
 const fs = require("fs");
 const path = require("path");
 const writeFile = require("../src/writeFile");
+const downloadTaxonomy = require("../src/public/javascripts/downloadTaxonomy");
 
 /* GET home page. */
 router.get("/", function (req, res) {
@@ -35,7 +36,7 @@ router.post("/upload", (req, res) => {
 		form.parse(req);
 });
 
-router.post("/query", (req, res) => {
+router.post("/query", (req, res, next) => {
 		const uploadPath = path.join(__dirname, "uploads");
 		if (fs.existsSync(uploadPath)) {
 				const uploadDir = fs.readdirSync(uploadPath);
@@ -47,11 +48,25 @@ router.post("/query", (req, res) => {
 								writeFile.writeToDisk(path.join(uploadPath, file)).then(function() {
 										res.redirect("query");
 										fs.unlinkSync(path.join(uploadPath, file));
-										res.end();
+										res.status(200).end();
+								}).catch(function(err) {
+										res.status(400);
+										fs.unlinkSync(path.join(uploadPath, file));
+										res.render("uploaderror", { error: err });
 								});
 						});
 				}
 		}
 });
+
+router.get("/taxa", (req, res) => {
+		downloadTaxonomy.downloadTaxonomy().then(function() {
+				res.status(200).jsonp({ success: true });
+				res.end();
+		}).catch(function(err) {
+				res.render("error", { error: err });
+		});
+});
+
 
 module.exports = router;

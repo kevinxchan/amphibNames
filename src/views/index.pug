@@ -12,6 +12,12 @@ block content
                 | available for download. The databases amphibNames uses are the
                 | #[a(href="http://research.amnh.org/vz/herpetology/amphibia/", class="hvr-float") Amphibian Species of the World],
                 | and #[a(href="https://amphibiaweb.org/", class="hvr-float") AmphibiaWeb].
+            h3 Prerequisites
+            p(style="display: inline;")
+                | Querying AmphibiaWeb requires a local installation of their taxonomy database. If one is not installed,
+                | or is not up-to-date (taxonomies are updated on a nightly basis, so update at your own discretion),
+                | click #[button#download-link(class="btn btn-link") here]
+                | to get the latest copy.
             h3 Example files and output
             p
                 | Input files can come in two formats, both of which end with a .txt extension. Each entry must be of the form
@@ -28,8 +34,35 @@ block content
                 | which occurred during querying.
             h3 Final notes
             p
-                | Once you start the query, the uploaded file will be deleted. Therefore, to repeat the same query,
-                | simply re-upload the file and click the query button again.
+                ul
+                 li
+                    | Once you start the query, the uploaded file will be deleted. Therefore, to repeat the same query,
+                    | simply re-upload the file and click the query button again.
+                 li
+                    | Large query files may result in errors for taxonomic annotations from the Amphibian Species of the World
+                    | database. Therefore, it is advised to have a maximum of around 400 to 500 genus-species names in a
+                    | single file.
             h3 Let's get started!
             p To get started, upload a .txt file containing a list of genus-species names delimited by commas or newlines below.
             include form
+    script.
+        $("#download-link").on("click", function() {
+            $.ajax({
+                url: "/taxa",
+                method: "GET",
+                cache: false,
+                success: function(data) {
+                    if (data["success"]) {
+                        bootbox.alert({
+                            message: "<p style='color:#155724'>Taxonomy file downloaded successfully.</p>"
+                        }).find('.modal-content').css({'background-color': '#c3e6cb'});
+                    }
+                },
+                error: function() {
+                    bootbox.alert({
+                        message: "<p style='color:#721c24'>Could not download taxonomy file. Please try again.</p>"
+                    }).find('.modal-content').css({'background-color': '#f8d7da'});
+                }
+            });
+            return false;
+        });
