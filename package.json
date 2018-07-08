@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
+    "start-prod": "node ./bin/www",
     "test": "./node_modules/.bin/mocha --reporter spec --timeout 10000"
   },
   "dependencies": {
