@@ -1,4 +1,4 @@
-# amphibNames 
+# amphibNames [![Build Status](https://travis-ci.com/kevinxchan/amphibNames.svg?branch=master)](https://travis-ci.com/kevinxchan/amphibNames)
 
 Batch updates of amphibian taxonomies
 
