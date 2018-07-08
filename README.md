@@ -9,8 +9,8 @@ updates to the tree of life. Therefore, amphibNames is a tool to allow batch upd
 taxonomy strings in the form of genus-species. Each entry is looked up in (currently) two databases, and
 the most recent taxonomy assigned to that organism is retrieved and written to an output file,
 available for download. The databases amphibNames uses are the
-[Amphibian Species of the World]("http://research.amnh.org/vz/herpetology/amphibia/"),
-and [AmphibiaWeb]("https://amphibiaweb.org/").
+[Amphibian Species of the World](http://research.amnh.org/vz/herpetology/amphibia/),
+and [AmphibiaWeb](https://amphibiaweb.org/).
 
 ## Getting started
 
