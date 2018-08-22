@@ -12,6 +12,12 @@ available for download. The databases amphibNames uses are the
 [Amphibian Species of the World](http://research.amnh.org/vz/herpetology/amphibia/),
 and [AmphibiaWeb](https://amphibiaweb.org/).
 
+## Demo
+
+Here is a GIF of amphibNames in action:
+
+![amphibnames-recording](http://recordit.co/1mMkpHDgeD.gif)
+
 ## Getting started
 
 ### Installation from source
