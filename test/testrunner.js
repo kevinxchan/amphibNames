@@ -130,6 +130,7 @@ describe("sendQuery suite", function() {
 
 describe("parseAmphibiaWeb suite", function() {
 		before(() => {
+				this.timeout(30000);
 				return new Promise((resolve) => {
 						console.log("checking for taxonomy table existence...");
 						if (!(fs.existsSync("./src/data/amphib_names.txt"))) {
